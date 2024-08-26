@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:block",
+    "pools": [
+    {
+        "rolls": 1.0,
+        "entries": [
+        {
+            "type": "minecraft:item",
+            "name": "isaac_land_claim_mod:block/example_block"
+        }
+        ]
+    }
+    ]
+} 

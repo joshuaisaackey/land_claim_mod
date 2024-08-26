@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "isaac_land_claim_mod:block/example_block"
+        }
+    }
+} 
