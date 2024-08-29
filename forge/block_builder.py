@@ -119,6 +119,6 @@ def main(mod_id, block_name):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python create_block.py <mod_id> <block_name>")
+        print("Usage: python block_builder.py <mod_id> <block_name>")
     else:
         main(sys.argv[1], sys.argv[2])
