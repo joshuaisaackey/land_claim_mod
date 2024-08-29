@@ -45,9 +45,15 @@ public class ExampleMod
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.EXAMPLE_ITEM);
+            ModItems.ITEMS.getEntries().forEach(itemRegistryObject ->
+                event.accept(itemRegistryObject.get())
+            );
+            ModBlocks.BLOCKS.getEntries().forEach(blockRegistryObject ->
+                event.accept(blockRegistryObject.get().asItem())
+            );
         }
     }
+    
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
