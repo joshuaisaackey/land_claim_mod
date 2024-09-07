@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "isaac_land_claim_mod:block/land_claim_block"
+    }
+}
