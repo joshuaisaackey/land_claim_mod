@@ -1,3 +1,6 @@
 {
-    "block.isaac_land_claim_mod.example_block": "Example Block"
+    "block.isaac_land_claim_mod.example_block": "Example Block",
+    "block.isaac_land_claim_mod.landon_test_block": "Landon Test Block",
+    "block.isaac_land_claim_mod.isaac_test_block": "Isaac Test Block",
+    "block.isaac_land_claim_mod.land_claim_block": "Land Claim Block"
 }
