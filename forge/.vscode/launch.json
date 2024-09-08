@@ -9,7 +9,7 @@
       "projectName": "forge",
       "cwd": "${workspaceFolder}/run",
       "vmArgs": "-Dforge.logging.console.level\u003ddebug -Dforge.logging.markers\u003dREGISTRIES -Dforge.enabledGameTestNamespaces\u003disaac_land_claim_mod -Dforge.enableGameTest\u003dtrue -Djava.net.preferIPv6Addresses\u003dsystem",
-      "args": "--launchTarget forge_userdev_client --version MOD_DEV --assetIndex 16 --assetsDir /home/isaac/.gradle/caches/forge_gradle/assets --gameDir .",
+      "args": "--launchTarget forge_userdev_client --version MOD_DEV --assetIndex 17 --assetsDir /home/isaac/.gradle/caches/forge_gradle/assets --gameDir .",
       "env": {
         "MOD_CLASSES": "${workspaceFolder}/build/sourcesSets/main",
         "MCP_MAPPINGS": "official_1.20.6"
@@ -24,7 +24,7 @@
       "projectName": "forge",
       "cwd": "${workspaceFolder}/run-data",
       "vmArgs": "-Dforge.logging.console.level\u003ddebug -Dforge.logging.markers\u003dREGISTRIES -Djava.net.preferIPv6Addresses\u003dsystem",
-      "args": "--launchTarget forge_userdev_data --assetIndex 16 --assetsDir /home/isaac/.gradle/caches/forge_gradle/assets --gameDir . --mod isaac_land_claim_mod --all --output /home/isaac/code/minecraft/forge/src/generated/resources --existing /home/isaac/code/minecraft/forge/src/main/resources",
+      "args": "--launchTarget forge_userdev_data --assetIndex 17 --assetsDir /home/isaac/.gradle/caches/forge_gradle/assets --gameDir . --mod isaac_land_claim_mod --all --output /home/isaac/code/minecraft/forge/src/generated/resources --existing /home/isaac/code/minecraft/forge/src/main/resources",
       "env": {
         "MOD_CLASSES": "${workspaceFolder}/build/sourcesSets/main",
         "MCP_MAPPINGS": "official_1.20.6"
