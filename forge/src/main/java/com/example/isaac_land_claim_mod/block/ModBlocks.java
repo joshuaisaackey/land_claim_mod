@@ -90,7 +90,7 @@ public class ModBlocks {
                             String blockName = fileName.substring(fileName.lastIndexOf('/') + 1,
                                     fileName.length() - ".json".length());
                             registerBlock(blockName,
-                                    () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                                    () -> new IsaacCustomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
                                             .sound(SoundType.STONE)));
                         });
             } catch (IOException e) {
@@ -107,7 +107,7 @@ public class ModBlocks {
                             String fileName = path.getFileName().toString();
                             String blockName = fileName.substring(0, fileName.length() - ".json".length());
                             registerBlock(blockName,
-                                    () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                                    () -> new IsaacCustomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
                                             .sound(SoundType.STONE)));
                         });
             } catch (IOException e) {
