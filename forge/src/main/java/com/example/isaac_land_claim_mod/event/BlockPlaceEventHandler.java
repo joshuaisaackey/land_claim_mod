@@ -29,7 +29,7 @@ public class BlockPlaceEventHandler {
             Block block = blockState.getBlock();
             Level world = player.level();
             BlockPos pos = event.getPos();
-            ChunkPos chunk = ChunkUtil.getChunkCoordinatesFromBlock(pos);
+            ChunkPos chunk = event.getLevel().getChunk(pos).getPos();
 
             // Log the event
             LOGGER.info("{} placed {} at ({}, {}, {}) in chunk at ({},{}) in dimension {}", 

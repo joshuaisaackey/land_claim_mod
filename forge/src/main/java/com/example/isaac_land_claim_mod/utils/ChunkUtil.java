@@ -10,26 +10,6 @@ import java.util.ArrayList;
 public class ChunkUtil {
 
     /**
-     * Converts the BlockPos of a block into ChunkPos (chunk coordinates).
-     *
-     * @param blockPos The BlockPos of the block in the world.
-     * @return The ChunkPos containing the chunk coordinates.
-     *
-     *         EXAMPLE:
-     *         BlockPos blockPos = new BlockPos(100, 64, 200);
-     *         ChunkPos chunkPos = ChunkUtil.getChunkCoordinatesFromBlock(blockPos);
-     *         System.out.println("Chunk coordinates: " + chunkPos.x + ", " +
-     *         chunkPos.z);
-     * 
-     */
-    public static ChunkPos getChunkCoordinatesFromBlock(BlockPos blockPos) {
-        // Divide the block's x and z coordinates by 16 to get the chunk coordinates
-        int chunkX = blockPos.getX() >> 4;
-        int chunkZ = blockPos.getZ() >> 4;
-        return new ChunkPos(chunkX, chunkZ);
-    }
-
-    /**
      * Finds all blocks in the specified chunk that match the given descriptionId.
      *
      * @param level The world level.
@@ -39,24 +19,26 @@ public class ChunkUtil {
      */
     public static java.util.List<BlockPos> findBlocksByDescriptionId(Level level, ChunkPos chunkPos, String descriptionId) {
         java.util.List<BlockPos> matchingBlocks = new ArrayList<>();
-
-        // Define the coordinates for the chunk
-        int startX = chunkPos.x * 16;
-        int startZ = chunkPos.z * 16;
-
+    
+        // Get the world coordinates for the bottom corner of the chunk
+        int chunkStartX = chunkPos.getMinBlockX(); // This gets the minimum X block coordinate in the chunk
+        int chunkStartZ = chunkPos.getMinBlockZ(); // This gets the minimum Z block coordinate in the chunk
+    
         // Iterate over all blocks in the chunk
         for (int x = 0; x < 16; x++) {
-            for (int y = 0; y < level.getMaxBuildHeight(); y++) {
+            for (int y = level.getMinBuildHeight(); y < level.getMaxBuildHeight(); y++) {
                 for (int z = 0; z < 16; z++) {
-                    BlockPos pos = new BlockPos(startX + x, y, startZ + z);
+                    BlockPos pos = new BlockPos(chunkStartX + x, y, chunkStartZ + z);
                     BlockState state = level.getBlockState(pos);
+    
                     if (state.getBlock().getDescriptionId().contains(descriptionId)) {
                         matchingBlocks.add(pos);
                     }
                 }
             }
         }
-
+    
         return matchingBlocks;
     }
+    
 }
