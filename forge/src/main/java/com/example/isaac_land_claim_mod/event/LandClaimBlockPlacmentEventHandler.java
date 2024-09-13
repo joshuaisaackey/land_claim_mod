@@ -3,16 +3,14 @@ package com.example.isaac_land_claim_mod.event;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import com.example.isaac_land_claim_mod.ExampleMod;
 import com.example.isaac_land_claim_mod.block.IsaacCustomBlock;
+import com.example.isaac_land_claim_mod.entity.IsaacClaimBlockEntity;
 import com.example.isaac_land_claim_mod.utils.ChunkUtil;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -65,7 +63,12 @@ public class LandClaimBlockPlacmentEventHandler {
                     String ownerName = player.getName().getString();
                     player.displayClientMessage(Component.literal("This chunk is claimed by " + ownerName + "."), true);
                     if (event.getPlacedBlock().getBlock() instanceof IsaacCustomBlock) {
-                        ((IsaacCustomBlock) event.getPlacedBlock().getBlock()).setOwnerUUID(player.getUUID());
+                        if (event.getLevel().getBlockEntity(pos) != null) {
+                            BlockEntity blockEntity = event.getLevel().getBlockEntity(pos);
+                            if(blockEntity instanceof IsaacClaimBlockEntity){
+                                ((IsaacClaimBlockEntity) blockEntity).setOwnerUUID(player.getUUID());
+                            }
+                        }
                     }
                 }
             }
@@ -74,20 +77,24 @@ public class LandClaimBlockPlacmentEventHandler {
 
     @SubscribeEvent
     public static void onBlockDestroy(BlockEvent.BreakEvent event) {
+        Player player = (Player) event.getPlayer();
         if (event.getState().getBlock().getDescriptionId().contains("land_claim_block")) {
             if (event.getState().getBlock() instanceof IsaacCustomBlock) {
-                IsaacCustomBlock block = ((IsaacCustomBlock) event.getState().getBlock());
                 if (event.getPlayer() instanceof Player) {
-                    Player player = (Player) event.getPlayer();
-                    if (block.getOwnerUUID() == player.getUUID()) {
-                        event.getPlayer().displayClientMessage(
-                                Component.literal("You released your claim on this chunk."),
-                                true);
-                                return;
+                    BlockPos pos = event.getPos();
+                    if (event.getLevel().getBlockEntity(pos) != null) {
+                        BlockEntity blockEntity = event.getLevel().getBlockEntity(pos);
+                        if(blockEntity instanceof IsaacClaimBlockEntity){
+                            if(player.getUUID().equals(((IsaacClaimBlockEntity) blockEntity).getOwnerUUID())) {
+                                event.getPlayer().displayClientMessage(
+                                    Component.literal("You released your claim on this chunk."),
+                                    true);
+                                    return;
+                            }
+                        }
                     }
                 }    
             }
-            Player player = (Player) event.getPlayer();
             player.displayClientMessage(Component.literal("You can't destroy someone elses claim block."), true);
             event.setCanceled(true);
         }

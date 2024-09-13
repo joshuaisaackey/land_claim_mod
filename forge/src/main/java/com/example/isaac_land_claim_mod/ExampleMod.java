@@ -1,6 +1,7 @@
 package com.example.isaac_land_claim_mod;
 
 import com.example.isaac_land_claim_mod.block.ModBlocks;
+import com.example.isaac_land_claim_mod.entity.BlockEntities;
 import com.example.isaac_land_claim_mod.item.ModCreativeModTabs;
 import com.example.isaac_land_claim_mod.item.ModItems;
 import com.mojang.logging.LogUtils;
@@ -26,12 +27,13 @@ public class ExampleMod
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public ExampleMod() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modEventBus = Mod.EventBusSubscriber.Bus.MOD.bus().get();
 
         ModCreativeModTabs.register(modEventBus);
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        BlockEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -41,6 +43,7 @@ public class ExampleMod
 
     private void commonSetup(final FMLCommonSetupEvent event) {
 
+        
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
