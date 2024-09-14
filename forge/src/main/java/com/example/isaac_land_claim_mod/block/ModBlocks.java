@@ -43,7 +43,8 @@ public class ModBlocks {
         }
 
         if (jarPath.contains(".jar")) {
-
+            System.out.println(":::Loading assets from jar [" + jarPath + "]:::");
+            jarPath = jarPath.replace("file:", "");
             try (JarFile jarFile = new JarFile(jarPath)) {
                 jarFile.stream()
                         .filter(entry -> entry.getName().startsWith("assets/" + ExampleMod.MODID + "/models/block/")
@@ -58,9 +59,11 @@ public class ModBlocks {
                                                     .sound(SoundType.STONE)));
                         });
             } catch (IOException e) {
+                System.err.println(":::Failed while loading assets from jar:::");
                 e.printStackTrace();
             }
         } else {
+            System.out.println(":::Loading assets from file system [" + jarPath + "]:::");
             jarPath = jarPath.replace("file:", "");
             String base = jarPath.split("/build/")[0];
             Path blockModelsPath = Paths
@@ -89,10 +92,13 @@ public class ModBlocks {
         if(name.equals("land_claim_block"))
             ISAAC_CLAIM_BLOCK = (RegistryObject<IsaacCustomBlock>) toReturn;
         registerBlockItem(name, toReturn);
+        System.out.println(":::Block Registered [" + name + "]:::");
         return toReturn;
     }
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        RegistryObject<Item> item =  ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        System.out.println(":::Item Registered [" + name + "]:::");
+        return item;
     }
 }
