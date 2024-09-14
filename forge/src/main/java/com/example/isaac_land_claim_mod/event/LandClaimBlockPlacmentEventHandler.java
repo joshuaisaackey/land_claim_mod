@@ -1,6 +1,9 @@
 package com.example.isaac_land_claim_mod.event;
 
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+
+import java.util.UUID;
+
 import com.example.isaac_land_claim_mod.ExampleMod;
 import com.example.isaac_land_claim_mod.block.IsaacCustomBlock;
 import com.example.isaac_land_claim_mod.entity.IsaacClaimBlockEntity;
@@ -66,6 +69,7 @@ public class LandClaimBlockPlacmentEventHandler {
                         if (event.getLevel().getBlockEntity(pos) != null) {
                             BlockEntity blockEntity = event.getLevel().getBlockEntity(pos);
                             if(blockEntity instanceof IsaacClaimBlockEntity){
+                                //((IsaacClaimBlockEntity) blockEntity).setOwnerUUID(UUID.randomUUID()); // for debugging purposes only
                                 ((IsaacClaimBlockEntity) blockEntity).setOwnerUUID(player.getUUID());
                             }
                         }
