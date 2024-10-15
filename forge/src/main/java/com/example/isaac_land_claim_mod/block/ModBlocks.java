@@ -1,4 +1,3 @@
-
 package com.example.isaac_land_claim_mod.block;
 
 import com.example.isaac_land_claim_mod.ExampleMod;
@@ -6,6 +5,7 @@ import com.example.isaac_land_claim_mod.item.ModItems;
 import com.example.isaac_land_claim_mod.utils.JarUtils;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -14,6 +14,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,11 +24,9 @@ import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
-            ExampleMod.MODID);
-
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ExampleMod.MODID);
+    
     public static RegistryObject<IsaacCustomBlock> ISAAC_CLAIM_BLOCK;
-
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
@@ -35,7 +34,6 @@ public class ModBlocks {
     }
 
     private static void registerAllBlocksFromJson() {
-
         String jarPath = JarUtils.getJarPath(ModBlocks.class);
         if (jarPath == null) {
             System.err.println("Failed to get JAR path.");
@@ -82,14 +80,13 @@ public class ModBlocks {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
     @SuppressWarnings("unchecked")
     private static <T extends IsaacCustomBlock> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        if(name.equals("land_claim_block"))
+        if (name.equals("land_claim_block"))
             ISAAC_CLAIM_BLOCK = (RegistryObject<IsaacCustomBlock>) toReturn;
         registerBlockItem(name, toReturn);
         System.out.println(":::Block Registered [" + name + "]:::");
@@ -97,7 +94,7 @@ public class ModBlocks {
     }
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        RegistryObject<Item> item =  ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        RegistryObject<Item> item = ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         System.out.println(":::Item Registered [" + name + "]:::");
         return item;
     }
